@@ -1,0 +1,7 @@
+ObjectType vs InputType
+ObjectType we return
+InputType are for args
+https://developer.redis.com/create/windows/
+https://answers.microsoft.com/en-us/windows/forum/all/error-0x80080204-the-operation-did-not-complete/a39943e8-0625-4df9-9b06-f31faf5dbd7f
+
+https://www.youtube.com/watch?v=4ePdm4AyL0s&ab_channel=ProtoCodersPoint

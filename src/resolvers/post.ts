@@ -1,14 +1,17 @@
 import { Post } from "../entities/Post";
 import { MyContext } from "../types";
 
-import { Resolver, Query, Ctx, Arg, Int, Mutation } from "type-graphql";
+import { Resolver, Query, Ctx, Arg, Mutation } from "type-graphql";
 import { RequiredEntityData } from "@mikro-orm/core";
 @Resolver()
 export class PostResolver {
+  //fetch all posts
   @Query(() => [Post])
   posts(@Ctx() { em }: MyContext): Promise<Post[]> {
     return em.find(Post, {});
   }
+
+  //create post
   @Query(() => Post, { nullable: true })
   post(@Arg("id") id: number, @Ctx() { em }: MyContext): Promise<Post | null> {
     return em.findOne(Post, { id });
@@ -23,6 +26,7 @@ export class PostResolver {
     return post;
   }
 
+  //update post
   @Mutation(() => Post, { nullable: true })
   async updatePost(
     @Arg("id") id: number,
@@ -39,6 +43,8 @@ export class PostResolver {
     }
     return post;
   }
+
+  //delete post
   @Mutation(() => Boolean)
   async deletePost(
     @Arg("id") id: number,
