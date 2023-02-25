@@ -44,6 +44,14 @@ export class UserResolver {
   users(@Ctx() { em }: MyContext): Promise<User[]> {
     return em.find(User, {});
   }
+  @Query(() => User, { nullable: true })
+  async me(@Ctx() { req, em }: MyContext) {
+    if (!req.session.userId) {
+      return null;
+    }
+    const user = await em.findOne(User, { id: req.session.userId });
+    return user;
+  }
 
   @Mutation(() => UserResponse)
   async register(
@@ -121,9 +129,9 @@ export class UserResolver {
         ],
       };
     }
+    //store userId session
+    //keep user logged in
     req.session.userId = user.id;
-    console.log({ req: req.session });
-    // await em.persistAndFlush(user);
     return { user };
   }
 }
